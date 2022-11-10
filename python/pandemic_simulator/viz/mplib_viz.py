@@ -128,6 +128,7 @@ class BaseMatplotLibViz(PandemicViz):
         ax.set_xlabel('time (days)')
         ax.set_ylabel('persons')
         ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+        return ax
 
     def plot_stages(self, ax: Optional[Axes] = None, **kwargs: Any) -> None:
         ax = ax or plt.gca()
@@ -168,6 +169,7 @@ class BaseMatplotLibViz(PandemicViz):
             self.annotate_plot(ax, plot_ref_labels[ax_i])
         plt.tight_layout()
         plt.show()
+        return plt
 
 
 class SimViz(BaseMatplotLibViz):
@@ -225,6 +227,9 @@ class SimViz(BaseMatplotLibViz):
             ax.set_ylabel('num_visits / num_persons')
             ax.set_ylim(0, None)
             ax.legend(p, self._person_types[::-1])
+        else:
+            print("No location assignee visits")
+        return ax
 
     def plot_location_visitor_visits(self, ax: Optional[Axes] = None, **kwargs: Any) -> None:
         ax = ax or plt.gca()
@@ -255,6 +260,7 @@ class SimViz(BaseMatplotLibViz):
             ax.set_ylim(0, None)
             ax.set_title('% Infections / Location Type')
             ax.set_ylabel('% infections')
+        return ax
 
 
 class GymViz(BaseMatplotLibViz):
